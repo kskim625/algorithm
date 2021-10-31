@@ -3,9 +3,7 @@ function solution(progresses, speeds) {
     let distribution;
 
     while (progresses.length !== 0) {
-        for (let i = 0; i < progresses.length; i++) {
-            progresses[i] += speeds[i];
-        }
+        for (let i = 0; i < progresses.length; i++) progresses[i] += speeds[i];
         distribution = 0;
         for (let j = 0; j < progresses.length; ) {
             if (progresses[j] >= 100) {
