@@ -11,7 +11,7 @@ def dp(x):
     
     if d[x] != 0:
         return d[x]
-    
+    print(d)
     d[x] = dp(x-1) + 1
     if x % 2 == 0:
         d[x] = min(d[x], dp(int(x/2)) + 1)
