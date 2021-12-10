@@ -1,6 +1,6 @@
 function solution(n, t, m, timetable) {
     timetable = timetable.sort();
-    let tempTimetable = timetable.slice(), initialHour = 9, initialMin = 0, thisTime;
+    let initialHour = 9, initialMin = 0, thisTime;
     for (let i = 0; i < n; i++) {
         const thisHour = String(initialHour).length === 1 ? '0' + String(initialHour) : String(initialHour);
         const thisMin = String(initialMin).length === 1 ? '0' + String(initialMin) : String(initialMin);
@@ -12,9 +12,9 @@ function solution(n, t, m, timetable) {
         }
         let crewOnBus = 0;
         for (let j = 0; j < m; j++) {
-            if (crewOnBus + tempTimetable.length >= m && i + 1 === n && j + 1 === m) {
-                if (tempTimetable[0] > thisTime) return thisTime;
-                const answerTime = tempTimetable[0].split(':');
+            if (crewOnBus + timetable.length >= m && i + 1 === n && j + 1 === m) {
+                if (timetable[0] > thisTime) return thisTime;
+                const answerTime = timetable[0].split(':');
                 let tempHour = Number(answerTime[0]), tempMin = Number(answerTime[1]) - 1;
                 if (tempMin < 0) {
                     tempHour -= 1;
@@ -24,9 +24,9 @@ function solution(n, t, m, timetable) {
                 const answerMin = String(tempMin).length === 1 ? '0' + String(tempMin) : String(tempMin);
                 return answerHour + ':' + answerMin;
             }
-            if (tempTimetable.length > 0 && tempTimetable[0] <= thisTime) {
+            if (timetable.length > 0 && timetable[0] <= thisTime) {
                 crewOnBus += 1;
-                tempTimetable.shift();
+                timetable.shift();
             }
         }
     }
