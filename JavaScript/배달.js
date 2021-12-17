@@ -1,4 +1,3 @@
-//unsolved
 function solution(N, road, K) {
     let distances = new Array(N + 1).fill(10e9), roadTree = {};
     distances[1] = 0;
@@ -9,15 +8,19 @@ function solution(N, road, K) {
         else roadTree[r[1]] = [[r[0], r[2]]];
     });
     const roadKeys = Object.keys(roadTree);
-    const roads = [[...roadTree[roadKeys[0]][0], Number(roadKeys[0])]];
+    const roads = [];
+    while (roadTree[roadKeys[0]].length > 0) {
+        roads.push([...roadTree[roadKeys[0]].shift(), Number(roadKeys[0])]);
+    }
     while (roads.length > 0) {
-        const currentRoad = roads.pop();
-        const currentKey = currentRoad[2];
+        const currentRoad = roads.shift(), currentKey = currentRoad[2];
         if (distances[currentKey] + currentRoad[1] < distances[currentRoad[0]]) {
             distances[currentRoad[0]] = distances[currentKey] + currentRoad[1];
-        }
-        while (roadTree[currentRoad[0]].length > 0) {
-            roads.push([...roadTree[currentRoad[0]].pop(), currentRoad[0]]);
+            for (let i = 0; i < roadTree[currentRoad[0]].length; i++) {
+                if (distances[currentKey] + roadTree[currentRoad[0]][i][1] < distances[roadTree[currentRoad[0]][i][0]]) {
+                    roads.push([...roadTree[currentRoad[0]][i], currentRoad[0]]);
+                }
+            }
         }
     }
     return distances.filter((d) => d <= K).length;
