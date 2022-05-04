@@ -1,15 +1,12 @@
-const getValue = (memo, idx) => {
-  if (memo[idx]) return memo[idx];
-  memo[idx] =
-    idx % 2 === 0 ? getValue(memo, idx / 2) : getValue(memo, idx - 1) + 1;
-  return memo[idx];
-};
-
 function solution(n) {
-  let memo = new Array(n + 1);
-  memo[1] = 1;
-  getValue(memo, n);
-  return memo[n];
+    let answer = 0, idx = n;
+    while (idx > 0) {
+        if (idx % 2 === 0) {
+            idx /= 2;
+        } else {
+            answer += 1;
+            idx -= 1;
+        }
+    }
+    return answer;
 }
-
-console.log(solution(234));
