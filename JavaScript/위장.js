@@ -1,10 +1,12 @@
 function solution(clothes) {
-    let clothesSet = {};
+    let clothesSet = {}, answer = 1;
     clothes.forEach((cloth) => {
         if (clothesSet[cloth[1]]) clothesSet[cloth[1]].push(cloth[0]);
         else clothesSet[cloth[1]] = [cloth[0]];
     });
-    console.log(clothesSet)
+    const values = Object.values(clothesSet);
+    for (let i = 0; i < values.length; i++) {
+        answer *= values[i].length + 1;
+    }
+    return answer - 1;
 }
-
-console.log(solution([["yellowhat", "headgear"], ["bluesunglasses", "eyewear"], ["green_turban", "headgear"]]));
