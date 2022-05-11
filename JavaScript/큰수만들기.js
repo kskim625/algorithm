@@ -1,14 +1,15 @@
-//unsolved(효율성)
-function solution(number, k) {    
-    let removed = 0, idx = 0;
-    while (removed < k && idx < number.length - 1) {
-        if (number[idx] < number[idx + 1]) {
-            number = number.substring(0, idx) + number.substring(idx + 1, number.length);
+function solution(number, k) {
+    let removed = 0;
+    const stack = [number[0]];
+    for (let i = 1; i < number.length; i++) {
+        let idx = stack.length - 1;
+        while (stack[idx] < number[i] && idx >= 0 && removed < k) {
+            stack.pop();
             removed += 1;
-            idx -= idx > 0 ? 1 : 0;
-            continue;
+            idx -= 1;
         }
-        idx += 1;
+        stack.push(number[i]);
     }
-    return removed < k ? number.substring(0, number.length - k) : number;
+    const answer = stack.join('');
+    return removed === k ? answer : answer.substring(0, answer.length - k);
 }
