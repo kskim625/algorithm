@@ -1,22 +1,33 @@
 function solution(s) {
-    let result = s.length;
-    for (let i = 1; i <= s.length / 2; i++) {
+    const answerList = [s];
+    for (let i = Math.floor(s.length / 2); i > 0; i--) {
         let j = 0;
-        let str = '';
-        while (j < s.length) {
-            let zip = s.substring(j, j + i);
-            let count = 0;
-            while (s.substring(j, j + i) === zip) {
+        let newS = '';
+        let remainder = '';
+        while (j + i * 2 <= s.length) {
+            let count = 1;
+            let firstStr = s.substr(j, i);
+            let secondStr = s.substr(j + i, i);
+            while (firstStr === secondStr) {
                 count += 1;
                 j += i;
+                firstStr = s.substr(j, i);
+                secondStr = s.substr(j + i, i);
             }
-            str += count > 1 ? count + zip : zip;
+            if (count > 1) {
+                newS += remainder + String(count) + firstStr;
+                remainder = '';
+                j += i;
+            } else {
+                remainder += s.substr(j, i);
+                j += i;
+            }
         }
-        if (result > str.length) {
-            result = str.length;
+        if (newS !== '' && (newS + remainder + s.substr(j, s.length)).length < answerList[answerList.length - 1].length) {
+            answerList.push(newS + remainder + s.substr(j, s.length));
         }
     }
-    return result;
+    return answerList[answerList.length - 1].length;
 }
 
 console.log(solution("aabbaccc"));
