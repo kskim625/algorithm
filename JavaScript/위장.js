@@ -10,3 +10,5 @@ function solution(clothes) {
     }
     return answer - 1;
 }
+
+console.log(solution([["yellowhat", "headgear"], ["bluesunglasses", "eyewear"], ["green_turban", "headgear"], ["test", 'test1']]));
